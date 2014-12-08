@@ -70,15 +70,15 @@ You can also specify multiple options at once at object creation. i.e.:
   ```
 
 Sample usage with Boto:
-    ```python
-    from boto import connect_ec2
-    from AwsConfigMFA import AwsConfigMFA
-
-    c = AwsConfigMFA()
-    creds = c.getTokenCredentials('dev')
-    conn = connect_ec2(creds['access_key'],
-                       creds['secret_key'],
-                       security_token = creds['session_token'])
-    instances = conn.get_only_instances()
-    ```
+  ```python
+  from boto import connect_ec2
+  from AwsConfigMFA import AwsConfigMFA
+  
+  c = AwsConfigMFA()
+  creds = c.getTokenCredentials('dev')
+  conn = connect_ec2(creds['access_key'],
+                     creds['secret_key'],
+                     security_token = creds['session_token'])
+  instances = conn.get_only_instances()
+  ```
 
