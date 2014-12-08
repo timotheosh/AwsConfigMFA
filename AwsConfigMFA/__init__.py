@@ -1,1 +1,1 @@
-from AwsConfig import AwsConfig
+from AwsConfigMFA import AwsConfigMFA
