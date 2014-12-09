@@ -1,1 +1,2 @@
 from AwsConfigMFA import AwsConfigMFA
+from InstanceByRole import InstanceByRole
