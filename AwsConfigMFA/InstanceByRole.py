@@ -34,11 +34,15 @@ class InstanceByRole():
         except Exception,e:
             print e
 
-    def private_ips(self):
+    def private_ips(self, key_name = None):
         l = []
         for x in self.instances:
             if x.private_ip_address:
-                l.append(x.private_ip_address)
+                if key_name:
+                    if x.key_name == key_name:
+                        l.append(x.private_ip_address)
+                else:
+                    l.append(x.private_ip_address)
         return l
 
 if __name__ == "__main__":
