@@ -5,16 +5,15 @@ from sys import path
 from os import environ
 path.append('%s/programs/lib' % environ['HOME'])
 
-from AwsConfig import AwsConfig
+from AwsConfigMFA import AwsConfigMFA
 
-class InstanceByRole():
+class InstanceByTag():
     """
-    Do things with instances defined by AWS role tag.
+    Do things with instances defined by AWS tags.
     """
-    def __init__(self, profile, role=None):
-        config = AwsConfig()
+    def __init__(self, profile, tag=None, value=None):
+        config = AwsConfigMFA()
         creds = config.getTokenCredentials(profile)
-        self.role = role
         try:
             conn = connect_ec2(creds['access_key'],
                                creds['secret_key'],
@@ -25,10 +24,14 @@ class InstanceByRole():
         try:
             self.instances = []
             instances = conn.get_only_instances()
-            if role:
+            if tag:
                 for x in instances:
-                    if x.tags.has_key('role') and x.tags['role'] == role:
-                        self.instances.append(x)
+                    if x.tags.has_key(tag):
+                        if value:
+                            if x.tags[tag] == value:
+                                self.instances.append(x)
+                        else:
+                            self.instances.append(x)
             else:
                 self.instances = instances
         except Exception,e:
