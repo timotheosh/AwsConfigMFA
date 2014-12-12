@@ -49,5 +49,5 @@ class InstanceByTag():
         return l
 
 if __name__ == "__main__":
-    s = InstanceByRole('dev', 'public_api')
+    s = InstanceByTag('dev', 'role', 'public_api')
     print ' '.join(s.private_ips())
