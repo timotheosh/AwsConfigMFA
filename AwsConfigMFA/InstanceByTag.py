@@ -11,7 +11,26 @@ class InstanceByTag():
     """
     Do things with instances defined by AWS tags.
     """
-    def __init__(self, profile, tag=None, value=None):
+    def __init__(self, profile, tag=None, value=None, key_name=None):
+        """
+        @param profile  Profile defined in your AWS config file
+                        (Usually the file defined by the environment
+                         variable $AWS_CONFIG_FILE. If you omit tag and
+                         value parameters, it willcollect all instances
+                         that pertain to the profile.
+
+        @param tag      The tag name to search on. If you omit value
+                        it will return all instances with this tag.
+
+        @param value    The value of the specified tag. Specifying this
+                        parameter should collect all instances where
+                        tag = value.
+
+        @param key_name Filter results
+
+        @var self.instances A list of instances that can be queried in
+                            other class functions.
+        """
         config = AwsConfigMFA()
         creds = config.getTokenCredentials(profile)
         try:
@@ -24,6 +43,16 @@ class InstanceByTag():
         try:
             self.instances = []
             instances = conn.get_only_instances()
+            if not hasattr(key_name, '__iter__'):
+                if hasattr(key_name, 'join'):
+                    key_name = [key_name]
+                else:
+                    # Invalid key_name. Just won't say anything to the user =P
+                    key_name = None
+            if key_name:
+                # Return only the instances with key_name(s)
+                instances = self.__parse_by_key_names__(instances, key_name)
+
             if tag:
                 for x in instances:
                     if x.tags.has_key(tag):
@@ -36,6 +65,13 @@ class InstanceByTag():
                 self.instances = instances
         except Exception,e:
             print e
+
+    def __parse_by_key_names__(self, instances, key_names):
+        rtn = []
+        for x in instances:
+            if x.key_name in key_names:
+                rtn.append(x)
+        return rtn
 
     def private_ips(self, key_name = None):
         l = []
