@@ -9,7 +9,7 @@ with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
 
 setup(
     name='AwsConfigMFA',
-    version='0.0.3',
+    version='0.0.4',
     description='Python module for managing MFA tokens with Amazon Web Services',
     long_description=long_description,
     url='https://github.com/timotheosh/AwsConfigMFA',

@@ -84,6 +84,21 @@ class InstanceByTag():
                     l.append(x.private_ip_address)
         return l
 
+    def instance_by_ip(self, private_ip):
+        rtn = None
+        for x in self.instances:
+            if x.private_ip_address == private_ip:
+                rtn = x
+        return rtn
+
+
+    def role_by_ip(self, ip):
+        rtn = None
+        for x in self.instances:
+            if x.private_ip_address == ip:
+                rtn = x.tags['role']
+        return rtn
+
 if __name__ == "__main__":
     s = InstanceByTag('dev', 'role', 'public_api')
     print ' '.join(s.private_ips())
