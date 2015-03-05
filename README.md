@@ -2,7 +2,7 @@ AwsConfigMFA
 =======================
 
 Description
-======================
+==========
 This is a python module that will generate multi-factor authentication tokens
 for use with Amazon Web Services.
 
