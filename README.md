@@ -1,9 +1,24 @@
-AwsConfigMFA
-=======================
+# AwsConfigMFA
 
+## Description
 This is a python module that will generate multi-factor authentication tokens
 for use with Amazon Web Services.
 
+**Style Note:** I favor Java's camel-case style for variables, classes, and methods over the standard Python. I love Python, but I am not a purist (not even when it comes to Java).
+
+## Installation
+Requires latest boto library (https://github.com/boto/boto).
+
+Step 1: Install boto
+```
+pip install boto
+```
+Step 2 Install AwsConfigMFA
+```
+pip install git+https://github.com/timotheosh/AwsConfigMFA.git
+```
+
+## Instructions
 In order to use this, you will need to create a file containing your AWS
 access key id, AWS secret access key, and the arn address for your MFA
 device. Like below:
