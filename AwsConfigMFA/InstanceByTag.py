@@ -1,6 +1,6 @@
 # Class InstanceByRole
 
-from boto import connect_ec2
+from boto.ec2 import connect_to_region
 from sys import path
 from os import environ
 path.append('%s/programs/lib' % environ['HOME'])
@@ -11,13 +11,15 @@ class InstanceByTag():
     """
     Do things with instances defined by AWS tags.
     """
-    def __init__(self, profile, tag=None, value=None, key_name=None):
+    def __init__(self, profile, region='us-east-1', tag=None, value=None, key_name=None):
         """
         @param profile  Profile defined in your AWS config file
                         (Usually the file defined by the environment
                          variable $AWS_CONFIG_FILE. If you omit tag and
                          value parameters, it willcollect all instances
                          that pertain to the profile.
+
+        @param region   The region to connect to.
 
         @param tag      The tag name to search on. If you omit value
                         it will return all instances with this tag.
@@ -34,11 +36,13 @@ class InstanceByTag():
         config = AwsConfigMFA()
         creds = config.getTokenCredentials(profile)
         try:
-            conn = connect_ec2(creds['access_key'],
-                               creds['secret_key'],
-                               security_token = creds['session_token'])
-        except:
+            conn = connect_to_region(region,
+                aws_access_key_id=creds['access_key'],
+                aws_secret_access_key=creds['secret_key'],
+                security_token = creds['session_token'])
+        except Exception,e:
             print "Failed to connect!"
+            print e.message
 
         try:
             self.instances = []
@@ -100,5 +104,5 @@ class InstanceByTag():
         return rtn
 
 if __name__ == "__main__":
-    s = InstanceByTag('dev', 'role', 'public_api')
+    s = InstanceByTag('dev', 'us-east-1', 'role', 'public_api')
     print ' '.join(s.private_ips())
