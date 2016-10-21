@@ -175,9 +175,9 @@ SKIPPING %s: There is incomplete information. Make sure all fields are present:
             if profile in vals:
               section = ' '.join(vals)
               break
-        rtn.update({'access_key': self.get(section, 'aws_access_key_id')})
-        rtn.update({'secret_key': self.get(section, 'aws_secret_access_key')})
-        rtn.update({'session_token': self.get(section, 'aws_session_token')})
+        rtn.update({'aws_access_key_id': self.get(section, 'aws_access_key_id')})
+        rtn.update({'aws_secret_access_key': self.get(section, 'aws_secret_access_key')})
+        rtn.update({'security_token': self.get(section, 'aws_session_token')})
         return rtn
 
 if __name__ == "__main__":
