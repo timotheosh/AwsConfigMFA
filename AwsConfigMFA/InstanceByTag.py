@@ -37,9 +37,9 @@ class InstanceByTag():
         creds = config.getTokenCredentials(profile)
         try:
             conn = connect_to_region(region,
-                aws_access_key_id=creds['access_key'],
-                aws_secret_access_key=creds['secret_key'],
-                security_token = creds['session_token'])
+                aws_access_key_id=creds['aws_access_key_id'],
+                aws_secret_access_key=creds['aws_secret_access_key'],
+                security_token = creds['security_token'])
         except Exception,e:
             print "Failed to connect!"
             print e.message
