@@ -6,7 +6,7 @@ from ConfigParser import ConfigParser
 from boto import connect_sts
 
 class AwsConfigMFA(ConfigParser):
-    def __init__(self, awsConfig=None, goldenFile=None, force = False, token_timeout = 36):
+    def __init__(self, awsConfig=None, goldenFile=None, force = False, token_timeout = 1):
         """
         @params awsConfig      Path to the AWS Config file (default:
                                $HOME/.aws/config)

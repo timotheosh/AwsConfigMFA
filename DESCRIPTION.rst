@@ -48,7 +48,7 @@ tokens to a different file, just specify at object creation:
   ```
 
 If your $AWS_CONFIG_FILE has aged beyond the specified timeout (the
-default is 36 hours), it will automatically reprompt you for your MFA
+default is 1 hour), it will automatically reprompt you for your MFA
 keys to regenerate your tokens. You can specify a different timeout at
 object creation with:
   ```python
