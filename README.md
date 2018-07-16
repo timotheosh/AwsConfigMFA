@@ -1,5 +1,8 @@
 # AwsConfigMFA
 
+## Deprecation Notice
+This repo is deprecated. Boto3 library contains a much better interface for using various aws credentials profiles. This lib can still be used to update your sts tokens if you use them, but beyond that, you should really be using boto3: https://github.com/boto/boto3.
+
 ## Description
 This is a python module that will generate multi-factor authentication tokens
 for use with Amazon Web Services.
